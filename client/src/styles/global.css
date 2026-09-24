@@ -388,6 +388,10 @@ p:last-child {
   .modal-overlay {
     animation: none;
   }
+
+  .spinner {
+    animation: none;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -803,6 +807,14 @@ p:last-child {
   background-position: center;
 }
 
+.hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .hero-scrim {
   position: absolute;
   inset: 0;
@@ -924,6 +936,14 @@ p:last-child {
   color: var(--text-on-dark);
   padding-block: clamp(64px, 9vw, 104px);
   overflow: hidden;
+}
+
+.page-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .page-hero-scrim {
@@ -1116,7 +1136,7 @@ p:last-child {
 
 .about-teaser-badge {
   position: absolute;
-  right: -14px;
+  right: 12px;
   bottom: 26px;
   background: var(--ink);
   color: var(--cream);
@@ -2321,6 +2341,33 @@ p:last-child {
 .map-frame {
   border: 1px solid var(--line);
   background: var(--ink);
+  min-height: 200px;
+}
+
+/* Click-to-load facade: avoids pulling ~500 KB of Maps JS until requested. */
+.map-facade {
+  display: flex;
+  width: 100%;
+  min-height: 320px;
+  align-items: center;
+  justify-content: center;
+  background: var(--ink-soft);
+  color: var(--text-on-dark);
+  border: none;
+  cursor: pointer;
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.map-facade-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.map-facade-inner .btn {
+  margin-top: 12px;
 }
 
 .contact-map-wrap {
@@ -2487,7 +2534,11 @@ p:last-child {
   overflow-y: auto;
   background: var(--paper);
   border: 2px solid var(--brass-dark);
-  outline: none;
+}
+
+.modal-panel:focus-visible {
+  outline: 2px solid var(--brass-dark);
+  outline-offset: 2px;
 }
 
 @keyframes fadeIn {
@@ -2628,7 +2679,7 @@ p:last-child {
 
   .booking-summary {
     position: static;
-    order: -1;
+    order: 2;
   }
 
   .about-teaser,
@@ -2723,17 +2774,23 @@ p:last-child {
 
   .hero-actions .btn {
     width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .btn-lg {
+    white-space: normal;
   }
 
   .trust-strip-inner {
     justify-content: flex-start;
     overflow-x: auto;
     flex-wrap: nowrap;
-    scrollbar-width: none;
+    scrollbar-width: thin;
   }
 
   .trust-strip-inner::-webkit-scrollbar {
-    display: none;
+    height: 6px;
   }
 
   .stats-row {
@@ -2857,7 +2914,7 @@ p:last-child {
 
 @media (max-width: 400px) {
   .wizard-step-label {
-    display: none;
+    font-size: 0.6rem;
   }
 
   .wizard-step button {
@@ -3138,6 +3195,16 @@ p:last-child {
   font-size: 0.9rem;
 }
 
+/* Allow wide admin/staff tables to scroll on small screens instead of overflowing. */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-scroll .dash-table {
+  min-width: 640px;
+}
+
 .dash-table th,
 .dash-table td {
   text-align: left;
@@ -3253,16 +3320,6 @@ p:last-child {
   .header-signin {
     display: none;
   }
-
-  .dash-table {
-    font-size: 0.8rem;
-  }
-
-  .dash-table th,
-  .dash-table td {
-    padding: 9px 8px;
-  }
-}
 
 /* Notification bell */
 .bell-menu {
@@ -3421,6 +3478,27 @@ p:last-child {
 
 @media (max-width: 760px) {
   .bell-menu {
-    display: none;
+    display: block;
   }
+
+  .bell-toggle {
+    width: 38px;
+    height: 38px;
+  }
+
+  .bell-dropdown {
+    position: fixed;
+    right: 12px;
+    left: 12px;
+    width: auto;
+  }
+}
+
+/* Defer off-screen rendering for long sections. */
+.gallery-strip,
+.testimonial-card,
+.value-card,
+.timeline {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 320px;
 }

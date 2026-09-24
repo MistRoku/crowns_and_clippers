@@ -78,7 +78,7 @@ export default function Terms() {
 
           <h2>6. Prices and payment</h2>
           <p>
-            All prices are shown in pounds sterling and include VAT where applicable. We
+            All prices are shown in rand (ZAR) and include 15% VAT where applicable. We
             aim to keep prices on this website accurate; if a price is displayed in error we
             will confirm the correct price with you before your appointment. Payment is taken
             at the shop after your service, by card, cash or contactless payment. We do not

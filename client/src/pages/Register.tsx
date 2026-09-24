@@ -56,7 +56,7 @@ export default function Register() {
                 autoComplete="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="e.g. Alex Turner"
+                placeholder="e.g. Thabo Mokoena"
               />
             </div>
             <div className="form-field">
@@ -67,7 +67,7 @@ export default function Register() {
                 autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
+                placeholder="you@example.co.za"
               />
             </div>
             <div className="form-field">

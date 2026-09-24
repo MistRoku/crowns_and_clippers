@@ -85,7 +85,7 @@ export default function Services() {
                   title={group.category}
                 />
               </Reveal>
-              <div className="scroll-row" aria-label={`${group.category} services`}>
+              <div className="scroll-row" role="region" tabIndex={0} aria-label={`${group.category} services`}>
                 {group.items.map((service) => (
                   <ServiceCard key={service.slug} service={service} />
                 ))}
@@ -113,6 +113,9 @@ export default function Services() {
                   src="/images/gallery-2.jpg"
                   alt="Hot towel treatment during a traditional shave"
                   loading="lazy"
+                  decoding="async"
+                  width="720"
+                  height="520"
                 />
               </div>
             </div>
@@ -123,7 +126,7 @@ export default function Services() {
             <Reveal>
               <SectionHeading eyebrow="Before you book" title="Good to Know" />
             </Reveal>
-            <div className="scroll-row scroll-row-wide" aria-label="Booking information">
+            <div className="scroll-row scroll-row-wide" role="region" tabIndex={0} aria-label="Booking information">
               {GOOD_TO_KNOW.map((item) => (
                 <div key={item.title} className="info-card">
                   <h3>{item.title}</h3>

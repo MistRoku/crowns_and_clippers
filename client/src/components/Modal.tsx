@@ -10,14 +10,42 @@ interface ModalProps {
 
 /**
  * Accessible modal dialog: closes on Escape or backdrop click,
- * locks body scroll and moves focus into the panel.
+ * locks body scroll, traps Tab focus inside the panel and restores
+ * focus to the previously focused element on close.
  */
 export default function Modal({ open, onClose, labelledBy, className, children }: ModalProps) {
   useEffect(() => {
     if (!open) return;
 
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') {
+        onClose();
+        return;
+      }
+      if (e.key !== 'Tab') return;
+      const panel = document.querySelector<HTMLElement>('.modal-panel');
+      if (!panel) return;
+      const focusables = Array.from(
+        panel.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((el) => el.offsetParent !== null || el === document.activeElement);
+      if (focusables.length === 0) {
+        e.preventDefault();
+        panel.focus();
+        return;
+      }
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
     document.addEventListener('keydown', onKey);
 
@@ -34,6 +62,7 @@ export default function Modal({ open, onClose, labelledBy, className, children }
       document.removeEventListener('keydown', onKey);
       document.body.style.overflow = previousOverflow;
       window.clearTimeout(focusTimer);
+      previouslyFocused?.focus?.();
     };
   }, [open, onClose]);
 
@@ -42,7 +71,6 @@ export default function Modal({ open, onClose, labelledBy, className, children }
   return (
     <div
       className="modal-overlay"
-      role="presentation"
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}

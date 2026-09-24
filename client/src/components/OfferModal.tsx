@@ -100,7 +100,7 @@ export default function OfferModal() {
                 id="offer-email"
                 type="email"
                 data-autofocus
-                placeholder="you@example.com"
+                placeholder="you@example.co.za"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 autoComplete="email"

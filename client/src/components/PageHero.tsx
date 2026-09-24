@@ -11,12 +11,17 @@ interface PageHeroProps {
 /** Compact banner used at the top of every inner page. */
 export default function PageHero({ eyebrow, title, intro, image, imageAlt }: PageHeroProps) {
   return (
-    <section
-      className="page-hero"
-      style={image ? { backgroundImage: `url(${image})` } : undefined}
-    >
+    <section className="page-hero">
       {image && (
         <>
+          <img
+            className="page-hero-img"
+            src={image}
+            alt=""
+            aria-hidden={!imageAlt}
+            fetchPriority="high"
+            decoding="async"
+          />
           <div className="page-hero-scrim" aria-hidden="true" />
           {imageAlt && <span className="visually-hidden">Background photo: {imageAlt}</span>}
         </>

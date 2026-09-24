@@ -1,24 +1,26 @@
-import { useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import OfferModal from './components/OfferModal';
 import { ShopProvider } from './context/ShopContext';
 import { AuthProvider } from './context/AuthContext';
 import Home from './pages/Home';
-import Services from './pages/Services';
-import About from './pages/About';
-import Booking from './pages/Booking';
-import Contact from './pages/Contact';
-import Terms from './pages/Terms';
-import Privacy from './pages/Privacy';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Account from './pages/Account';
-import Notifications from './pages/Notifications';
-import Staff from './pages/Staff';
-import Admin from './pages/Admin';
-import NotFound from './pages/NotFound';
+
+// Lazy-load everything below the landing page so the initial bundle stays small.
+const Services = lazy(() => import('./pages/Services'));
+const About = lazy(() => import('./pages/About'));
+const Booking = lazy(() => import('./pages/Booking'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Terms = lazy(() => import('./pages/Terms'));
+const Privacy = lazy(() => import('./pages/Privacy'));
+const Login = lazy(() => import('./pages/Login'));
+const Register = lazy(() => import('./pages/Register'));
+const Account = lazy(() => import('./pages/Account'));
+const Notifications = lazy(() => import('./pages/Notifications'));
+const Staff = lazy(() => import('./pages/Staff'));
+const Admin = lazy(() => import('./pages/Admin'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+const OfferModal = lazy(() => import('./components/OfferModal'));
 
 /** Scrolls to the top (or to a #hash target) on every navigation. */
 function ScrollManager() {
@@ -49,6 +51,15 @@ export default function App() {
           <Header />
           <ScrollManager />
           <main id="main-content">
+            <Suspense
+              fallback={
+                <div className="container section" role="status" aria-label="Loading page">
+                  <span className="skeleton skeleton-row" />
+                  <span className="skeleton skeleton-row" />
+                  <span className="skeleton skeleton-row" />
+                </div>
+              }
+            >
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/services" element={<Services />} />
@@ -65,9 +76,12 @@ export default function App() {
               <Route path="/admin" element={<Admin />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
+            </Suspense>
           </main>
           <Footer />
-          <OfferModal />
+          <Suspense fallback={null}>
+            <OfferModal />
+          </Suspense>
         </div>
       </AuthProvider>
     </ShopProvider>

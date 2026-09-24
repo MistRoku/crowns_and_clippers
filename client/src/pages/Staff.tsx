@@ -76,6 +76,7 @@ function StaffInner() {
           )}
 
           {rows && rows.length > 0 && (
+            <div className="table-scroll">
             <table className="dash-table">
               <thead>
                 <tr>
@@ -104,6 +105,7 @@ function StaffInner() {
                 ))}
               </tbody>
             </table>
+            </div>
           )}
         </div>
       </section>

@@ -10,7 +10,7 @@ export default function BarberCard({ barber, showBio = false }: BarberCardProps)
   return (
     <article className="barber-card">
       <div className="barber-photo">
-        <img src={barber.photoUrl} alt={`${barber.name}, ${barber.title} at Crown & Clipper`} loading="lazy" />
+        <img src={barber.photoUrl} alt={`${barber.name}, ${barber.title} at Crown & Clipper`} loading="lazy" decoding="async" width="400" height="400" />
         <span className="barber-experience">{barber.yearsExperience} yrs</span>
       </div>
       <div className="barber-info">

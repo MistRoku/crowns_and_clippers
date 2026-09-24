@@ -104,7 +104,7 @@ export default function Footer() {
       {/* Multi-tenant shop switcher (visible when more than one shop exists) */}
       {tenants && tenants.length > 1 && (
         <div className="footer-shops">
-          <div className="container footer-shops-inner" aria-label="Our shops">
+          <nav className="container footer-shops-inner" aria-label="Our shops">
             <span className="footer-shops-label">Our shops:</span>
             {tenants.map((t) => (
               <button
@@ -116,7 +116,7 @@ export default function Footer() {
                 {t.name}
               </button>
             ))}
-          </div>
+          </nav>
         </div>
       )}
 

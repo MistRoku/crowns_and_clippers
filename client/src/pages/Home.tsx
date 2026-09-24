@@ -73,11 +73,12 @@ export default function Home() {
     <>
       {/* ---------------- HERO ---------------- */}
       <section className="hero">
-        <div
-          className="hero-bg"
-          style={{ backgroundImage: 'url(/images/hero-main.jpg)' }}
-          role="img"
-          aria-label="A barber finishing a precise fade at Crown & Clipper"
+        <img
+          className="hero-img"
+          src="/images/hero-main.jpg"
+          alt="A barber finishing a precise fade at Crown & Clipper"
+          fetchPriority="high"
+          decoding="async"
         />
         <div className="hero-scrim" aria-hidden="true" />
         <div className="container hero-content">
@@ -114,7 +115,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- TRUST STRIP ---------------- */}
-      <div className="trust-strip" aria-label="Why customers choose us">
+      <div className="trust-strip" role="region" tabIndex={0} aria-label="Why customers choose us">
         <div className="container trust-strip-inner">
           {TRUST_ITEMS.map((item) => (
             <span key={item} className="trust-item">
@@ -134,7 +135,7 @@ export default function Home() {
               intro="Every service includes a consultation, a finish with premium product, and as much or as little conversation as you like. Scroll for the favourites, or see the full menu."
             />
           </Reveal>
-          <div className="scroll-row" aria-label="Popular services">
+          <div className="scroll-row" role="region" tabIndex={0} aria-label="Popular services">
             {loading
               ? [0, 1, 2].map((i) => <div key={i} className="skeleton skeleton-card" />)
               : teasers.map((service) => (
@@ -159,6 +160,9 @@ export default function Home() {
               src="/images/interior.jpg"
               alt="The Crown & Clipper shop floor with leather chairs and warm lighting"
               loading="lazy"
+              decoding="async"
+              width="800"
+              height="880"
             />
             <div className="about-teaser-badge">
               <span className="badge-number">10+</span>
@@ -176,7 +180,7 @@ export default function Home() {
               by name (and by their exact fade setting).
             </p>
             <p>
-              Come for the cut, stay for the coffee, the cricket on the telly and a chair
+              Come for the cut, stay for the coffee, the cricket on the TV and a chair
               that feels like yours.
             </p>
             <div className="stats-row" aria-label="Shop statistics">
@@ -204,7 +208,7 @@ export default function Home() {
               intro="Barbers and stylists, each with their own speciality and one shared standard: the sharpest result you've had all year. Scroll to meet them all."
             />
           </Reveal>
-          <div className="scroll-row" aria-label="Our barbers">
+          <div className="scroll-row" role="region" tabIndex={0} aria-label="Our barbers">
             {loading
               ? [0, 1, 2, 3].map((i) => <div key={i} className="skeleton skeleton-barber" />)
               : barbers.map((barber) => (
@@ -224,7 +228,7 @@ export default function Home() {
               title="What the Regulars Say"
             />
           </Reveal>
-          <div className="scroll-row scroll-row-wide" aria-label="Customer reviews">
+          <div className="scroll-row scroll-row-wide" role="region" tabIndex={0} aria-label="Customer reviews">
             {TESTIMONIALS.map((t) => (
               <figure key={t.name} className="testimonial-card">
                 <blockquote>“{t.quote}”</blockquote>
@@ -239,10 +243,10 @@ export default function Home() {
 
       {/* ---------------- GALLERY ---------------- */}
       <section className="gallery-strip" aria-label="Photos from the shop">
-        <img src="/images/gallery-1.jpg" alt="A fresh skin fade being finished with clippers" loading="lazy" />
-        <img src="/images/gallery-2.jpg" alt="Beard sculpting with a straight razor" loading="lazy" />
-        <img src="/images/gallery-3.jpg" alt="Barber tools laid out on a leather roll" loading="lazy" />
-        <img src="/images/tools.jpg" alt="Clippers, scissors and comb on the station" loading="lazy" />
+        <img src="/images/gallery-1.jpg" alt="A fresh skin fade being finished with clippers" loading="lazy" decoding="async" width="600" height="450" />
+        <img src="/images/gallery-2.jpg" alt="Beard sculpting with a straight razor" loading="lazy" decoding="async" width="600" height="450" />
+        <img src="/images/gallery-3.jpg" alt="Barber tools laid out on a leather roll" loading="lazy" decoding="async" width="600" height="450" />
+        <img src="/images/tools.jpg" alt="Clippers, scissors and comb on the station" loading="lazy" decoding="async" width="600" height="450" />
       </section>
 
       {/* ---------------- CTA BAND ---------------- */}

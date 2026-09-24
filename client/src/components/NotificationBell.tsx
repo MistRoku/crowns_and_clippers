@@ -41,6 +41,15 @@ export default function NotificationBell() {
     api.myNotifications().then(setItems).catch(() => setItems([]));
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [open ]);
+
   if (!user) return null;
 
   const markAll = async () => {
@@ -56,6 +65,8 @@ export default function NotificationBell() {
         className="bell-toggle"
         aria-label={`Notifications (${count} unread)`}
         aria-expanded={open}
+        aria-haspopup="menu"
+        aria-controls="bell-dropdown"
         onClick={() => setOpen((v) => !v)}
       >
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" aria-hidden="true">
@@ -70,11 +81,10 @@ export default function NotificationBell() {
           <button
             type="button"
             className="account-overlay"
-            aria-hidden="true"
-            tabIndex={-1}
+            aria-label="Close notifications"
             onClick={() => setOpen(false)}
           />
-          <div className="bell-dropdown" role="region" aria-label="Notifications">
+          <div className="bell-dropdown" id="bell-dropdown" role="menu" aria-label="Notifications">
             <div className="bell-head">
               <strong>Notifications</strong>
               {count > 0 && (

@@ -531,8 +531,11 @@ export default function Booking() {
                             <img
                               className="select-item-photo"
                               src={barber.photoUrl}
-                              alt=""
+                              alt={barber.name}
                               loading="lazy"
+                              decoding="async"
+                              width="56"
+                              height="56"
                             />
                             <span className="select-item-main">
                               <span className="select-item-name">{barber.name}</span>
@@ -566,7 +569,7 @@ export default function Booking() {
                   <div className="wizard-panel">
                     <h2 className="wizard-title">Pick a date &amp; time</h2>
                     <p className="wizard-subtitle">
-                      All times are UK time. Same-day bookings need at least one hour's notice.
+                      All times are South African Standard Time (SAST). Same-day bookings need at least one hour's notice.
                     </p>
 
                     <div className="date-strip" role="group" aria-label="Choose a date">
@@ -680,7 +683,7 @@ export default function Booking() {
                             value={form.name}
                             onChange={(e) => setForm({ ...form, name: e.target.value })}
                             aria-invalid={!!formErrors.name}
-                            placeholder="e.g. Alex Turner"
+                            placeholder="e.g. Thabo Mokoena"
                           />
                           {formErrors.name && <p className="form-error-inline" role="alert">{formErrors.name}</p>}
                         </div>
@@ -693,7 +696,7 @@ export default function Booking() {
                             value={form.phone}
                             onChange={(e) => setForm({ ...form, phone: e.target.value })}
                             aria-invalid={!!formErrors.phone}
-                            placeholder="e.g. 07700 900123"
+                            placeholder="e.g. 082 123 4567"
                           />
                           {formErrors.phone && <p className="form-error-inline" role="alert">{formErrors.phone}</p>}
                         </div>
@@ -707,7 +710,7 @@ export default function Booking() {
                           value={form.email}
                           onChange={(e) => setForm({ ...form, email: e.target.value })}
                           aria-invalid={!!formErrors.email}
-                          placeholder="you@example.com"
+                          placeholder="you@example.co.za"
                         />
                         {formErrors.email && <p className="form-error-inline" role="alert">{formErrors.email}</p>}
                       </div>

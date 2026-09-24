@@ -13,7 +13,7 @@ export const FALL_SHOP: ShopInfo = {
   city: 'Johannesburg',
   postcode: '2092',
   fullAddress: '44 Stanley Avenue, Milpark, Johannesburg 2092',
-  phone: '+27 11 555 0142',
+  phone: '+27 11 482 1234',
   email: 'hello@crownandclipper.co.za',
   timezone: 'Africa/Johannesburg',
   offerCode: 'FIRSTCUT10',
@@ -30,9 +30,9 @@ export const FALL_SHOP: ShopInfo = {
 };
 
 export const SHOP_SOCIALS = [
-  { label: 'Instagram', url: 'https://www.instagram.com/' },
-  { label: 'Facebook', url: 'https://www.facebook.com/' },
-  { label: 'TikTok', url: 'https://www.tiktok.com/' },
+  { label: 'Instagram', url: 'https://www.instagram.com/crownandclipper.joburg' },
+  { label: 'Facebook', url: 'https://www.facebook.com/crownandclipperjoburg' },
+  { label: 'TikTok', url: 'https://www.tiktok.com/@crownandclipper.joburg' },
 ];
 
 /** UI-friendly derivations from the tenant record. */
@@ -51,7 +51,7 @@ export function toShopView(shop: ShopInfo): ShopView {
     founded: shop.estYear,
     phoneDisplay: shop.phone.startsWith('+27 ')
       ? '0' + shop.phone.slice(4)
-      : shop.phone.replace('+44 ', '0'),
+      : shop.phone,
     phoneHref: `tel:+${shop.phone.replace(/[^0-9]/g, '')}`,
     mapLink: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(shop.fullAddress)}`,
     mapEmbedSrc: `https://www.google.com/maps?q=${encodeURIComponent(shop.fullAddress)}&output=embed`,

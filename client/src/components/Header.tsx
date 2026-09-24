@@ -26,6 +26,16 @@ export default function Header() {
     setAccountOpen(false);
   }, [location.pathname]);
 
+  // Close dropdowns on Escape.
+  useEffect(() => {
+    if (!accountOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setAccountOpen(false);
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [accountOpen]);
+
   // Subtle style change once the user scrolls.
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -97,6 +107,7 @@ export default function Header() {
                 className="account-toggle"
                 aria-expanded={accountOpen}
                 aria-haspopup="menu"
+                aria-controls="account-menu-list"
                 onClick={() => setAccountOpen((v) => !v)}
               >
                 {user.name.split(' ')[0]}
@@ -107,11 +118,10 @@ export default function Header() {
                   <button
                     type="button"
                     className="account-overlay"
-                    aria-hidden="true"
-                    tabIndex={-1}
+                    aria-label="Close account menu"
                     onClick={() => setAccountOpen(false)}
                   />
-                  <ul className="account-dropdown" role="menu" aria-label="Account">
+                  <ul className="account-dropdown" id="account-menu-list" role="menu" aria-label="Account">
                     {accountLinks}
                     <li>
                       <button

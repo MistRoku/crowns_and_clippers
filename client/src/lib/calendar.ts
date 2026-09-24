@@ -24,7 +24,7 @@ export interface CalendarBooking {
   shopName: string;
   address: string;
   phone: string;
-  timezone: string; // IANA zone, e.g. Europe/London
+  timezone: string; // IANA zone, e.g. Africa/Johannesburg
   customerName: string;
 }
 
@@ -85,8 +85,9 @@ function eventDetails(b: CalendarBooking): string {
 /**
  * Google Calendar template link.
  * Times are sent in the shop's local time together with ctz=<IANA zone>, so
- * Google converts them correctly for the customer's own calendar/time zone,
- * including BST/GMT transitions.
+ * Google converts them correctly for the customer's own calendar/time zone.
+ * Crown & Clipper runs on South African Standard Time (SAST, UTC+2, no
+ * daylight saving).
  */
 export function googleCalendarUrl(b: CalendarBooking): string {
   const { start, end } = startEnd(b);
@@ -130,9 +131,8 @@ export function outlookCalendarUrl(b: CalendarBooking): string {
 // ---------------------------------------------------------------------------
 
 /**
- * VTIMEZONE block for the booking's zone. Africa/Johannesburg (SAST) has no
- * daylight saving, so a single STANDARD component is correct; the Europe/London
- * DST rules are kept for any legacy zone.
+ * VTIMEZONE block for the booking's zone. Africa/Johannesburg (SAST, UTC+2)
+ * has no daylight saving, so a single STANDARD component is correct.
  */
 function vtimezone(tz: string): string[] {
   if (tz === 'Africa/Johannesburg') {
@@ -148,22 +148,16 @@ function vtimezone(tz: string): string[] {
       'END:VTIMEZONE',
     ];
   }
+  // Non-SA zones shouldn't occur (all shops run on Africa/Johannesburg),
+  // but fall back to a fixed +02:00 STANDARD block so the .ics stays valid.
   return [
     'BEGIN:VTIMEZONE',
     `TZID:${tz}`,
-    'BEGIN:DAYLIGHT',
-    'TZOFFSETFROM:+0000',
-    'TZOFFSETTO:+0100',
-    'TZNAME:BST',
-    'DTSTART:19700329T010000',
-    'RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU',
-    'END:DAYLIGHT',
     'BEGIN:STANDARD',
-    'TZOFFSETFROM:+0100',
-    'TZOFFSETTO:+0000',
-    'TZNAME:GMT',
-    'DTSTART:19701025T020000',
-    'RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU',
+    'TZOFFSETFROM:+0200',
+    'TZOFFSETTO:+0200',
+    'TZNAME:SAST',
+    'DTSTART:19700101T000000',
     'END:STANDARD',
     'END:VTIMEZONE',
   ];
@@ -203,7 +197,7 @@ export function buildIcs(b: CalendarBooking): string {
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     // Zone rules so the event stays correct for any appointment date
-    // for any appointment date (GMT in winter, BST in summer).
+    // (SAST is UTC+2 all year - South Africa observes no daylight saving).
     ...vtimezone(b.timezone),
     'BEGIN:VEVENT',
     `UID:${b.reference.toLowerCase()}@crownandclipper.co.za`,

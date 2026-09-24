@@ -28,6 +28,7 @@ export default function Contact() {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState<string | null>(null);
   const [sendError, setSendError] = useState<string | null>(null);
+  const [mapActive, setMapActive] = useState(false);
 
   const validate = (): boolean => {
     const e: Partial<Record<keyof ContactForm, string>> = {};
@@ -77,7 +78,7 @@ export default function Contact() {
       {/* Info cards */}
       <section className="section">
         <div className="container">
-          <div className="scroll-row scroll-row-wide" aria-label="Contact details">
+          <div className="scroll-row scroll-row-wide" role="region" tabIndex={0} aria-label="Contact details">
             <Reveal>
               <div className="info-card info-card-contact">
                 <h3>Visit the shop</h3>
@@ -160,7 +161,7 @@ export default function Contact() {
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       aria-invalid={!!errors.name}
-                      placeholder="Your name"
+                      placeholder="e.g. Thabo Mokoena"
                     />
                     {errors.name && <p className="form-error-inline" role="alert">{errors.name}</p>}
                   </div>
@@ -173,7 +174,7 @@ export default function Contact() {
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
                       aria-invalid={!!errors.email}
-                      placeholder="you@example.com"
+                      placeholder="you@example.co.za"
                     />
                     {errors.email && <p className="form-error-inline" role="alert">{errors.email}</p>}
                   </div>
@@ -189,7 +190,7 @@ export default function Contact() {
                       autoComplete="tel"
                       value={form.phone}
                       onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                      placeholder="07700 900123"
+                      placeholder="082 123 4567"
                     />
                   </div>
                   <div className="form-field">
@@ -237,16 +238,33 @@ export default function Contact() {
 
           <Reveal delay={140} className="contact-map-wrap">
             <div className="map-frame">
-              <iframe
-                title="Map showing Crown & Clipper Barber Co. at 44 Stanley Avenue, Johannesburg"
-                src={SHOP.mapEmbedSrc}
-                width="100%"
-                height="420"
-                style={{ border: 0 }}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-              />
+              {mapActive ? (
+                <iframe
+                  title="Map showing Crown & Clipper Barber Co. at 44 Stanley Avenue, Johannesburg"
+                  src={SHOP.mapEmbedSrc}
+                  width="100%"
+                  height="420"
+                  style={{ border: 0 }}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+              ) : (
+                <button
+                  type="button"
+                  className="map-facade"
+                  onClick={() => setMapActive(true)}
+                  aria-label="Load interactive map of Crown & Clipper Barber Co., 44 Stanley Avenue, Johannesburg"
+                >
+                  <span className="map-facade-inner">
+                    <strong>{SHOP.addressLine}</strong>
+                    <span>
+                      {SHOP.city} {SHOP.postcode}
+                    </span>
+                    <span className="btn btn-dark btn-sm">Load map</span>
+                  </span>
+                </button>
+              )}
             </div>
             <div className="info-card map-note">
               <h3>Getting here</h3>

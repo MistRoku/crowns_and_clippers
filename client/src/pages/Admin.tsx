@@ -45,7 +45,9 @@ function AdminInner() {
                 key={t.id}
                 type="button"
                 role="tab"
+                id={`admin-tab-${t.id}`}
                 aria-selected={tab === t.id}
+                aria-controls={`admin-panel-${t.id}`}
                 className={`chip ${tab === t.id ? 'selected' : ''}`}
                 onClick={() => setTab(t.id)}
               >
@@ -53,12 +55,18 @@ function AdminInner() {
               </button>
             ))}
           </div>
+          <div
+            role="tabpanel"
+            id={`admin-panel-${tab}`}
+            aria-labelledby={`admin-tab-${tab}`}
+          >
           {tab === 'overview' && <Overview />}
           {tab === 'bookings' && <Bookings />}
           {tab === 'messages' && <Messages />}
           {tab === 'signups' && <Signups />}
           {tab === 'users' && <Users />}
           {tab === 'outbox' && <Outbox />}
+          </div>
         </div>
       </section>
     </>
@@ -143,6 +151,7 @@ function Bookings() {
       {!rows && !error && <SkeletonRows n={4} />}
       {rows && rows.length === 0 && <Empty msg="No bookings match this filter." />}
       {rows && rows.length > 0 && (
+        <div className="table-scroll">
         <table className="dash-table">
           <thead>
             <tr>
@@ -189,6 +198,7 @@ function Bookings() {
             ))}
           </tbody>
         </table>
+        </div>
       )}
     </>
   );
@@ -238,6 +248,7 @@ function Signups() {
   if (rows.length === 0) return <Empty msg="No newsletter signups yet." />;
 
   return (
+    <div className="table-scroll">
     <table className="dash-table">
       <thead>
         <tr>
@@ -256,6 +267,7 @@ function Signups() {
         ))}
       </tbody>
     </table>
+    </div>
   );
 }
 
@@ -321,6 +333,7 @@ function Users() {
       {error && <AlertError msg={error} />}
       {!rows && !error && <SkeletonRows n={3} />}
       {rows && (
+        <div className="table-scroll">
         <table className="dash-table">
           <thead>
             <tr>
@@ -357,6 +370,7 @@ function Users() {
             ))}
           </tbody>
         </table>
+        </div>
       )}
 
       <form className="auth-card dash-create" onSubmit={create}>
@@ -449,6 +463,7 @@ function Outbox() {
       {!data && !error && <SkeletonRows n={4} />}
       {data && data.items.length === 0 && <Empty msg="No messages yet. Bookings and reminders will appear here." />}
       {data && data.items.length > 0 && (
+        <div className="table-scroll">
         <table className="dash-table">
           <thead>
             <tr>
@@ -490,6 +505,7 @@ function Outbox() {
             ))}
           </tbody>
         </table>
+        </div>
       )}
     </>
   );

@@ -22,7 +22,7 @@ const VALUES = [
   },
   {
     title: 'Community',
-    text: 'Ten years on Stanley Avenue means we\u2019ve cut grandads and their grandsons. That\u2019s the point.',
+    text: 'Ten years on Stanley Avenue means we\u2019ve cut grandfathers, oupas and their grandsons. That\u2019s the point.',
   },
 ];
 
@@ -61,6 +61,9 @@ export default function About() {
               src="/images/gallery-3.jpg"
               alt="Marcus Reid finishing a classic scissor cut"
               loading="lazy"
+              decoding="async"
+              width="800"
+              height="880"
             />
           </Reveal>
           <Reveal delay={120} className="story-copy">
@@ -105,7 +108,7 @@ export default function About() {
               title="Four Things We Never Compromise"
             />
           </Reveal>
-          <div className="scroll-row scroll-row-wide" aria-label="Our values">
+          <div className="scroll-row scroll-row-wide" role="region" tabIndex={0} aria-label="Our values">
             {VALUES.map((v, i) => (
               <div key={v.title} className="value-card">
                 <span className="value-number" aria-hidden="true">
