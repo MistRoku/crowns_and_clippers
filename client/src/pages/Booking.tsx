@@ -85,6 +85,17 @@ export default function Booking() {
 
   const dateOptions = useMemo(() => buildDateOptions(SHOP.timezone), [SHOP.timezone]);
 
+  // Show the 21-day window one week at a time so the strip never
+  // overflows the wizard panel (previously 21 chips forced page-wide scroll).
+  const WEEK_SIZE = 7;
+  const [weekOffset, setWeekOffset] = useState(0);
+  const weekCount = Math.max(1, Math.ceil(dateOptions.length / WEEK_SIZE));
+  const safeWeek = Math.min(weekOffset, weekCount - 1);
+  const visibleDates = useMemo(
+    () => dateOptions.slice(safeWeek * WEEK_SIZE, safeWeek * WEEK_SIZE + WEEK_SIZE),
+    [dateOptions, safeWeek],
+  );
+
   const selectedService = useMemo(
     () => services?.find((s) => s.id === serviceId) ?? null,
     [services, serviceId],
@@ -184,6 +195,15 @@ export default function Booking() {
   useEffect(() => {
     if (step === 3 && !date) setDate(firstOpenDate(SHOP.timezone));
   }, [step, date]);
+
+  // Keep the visible week in sync when the selected date moves
+  // (e.g. the default date) and clamp the pager to the 21-day window.
+  useEffect(() => {
+    if (!date) return;
+    const idx = dateOptions.indexOf(date);
+    if (idx >= 0) setWeekOffset(Math.floor(idx / WEEK_SIZE));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [date, dateOptions]);
 
   // ------------------------------------------------------------------
   // Fetch availability whenever date / barber / service changes
@@ -572,8 +592,32 @@ export default function Booking() {
                       All times are South African Standard Time (SAST). Same-day bookings need at least one hour's notice.
                     </p>
 
+                    <div className="date-nav">
+                      <button
+                        type="button"
+                        className="btn btn-outline-dark btn-sm"
+                        onClick={() => setWeekOffset((w) => Math.max(0, w - 1))}
+                        disabled={safeWeek === 0}
+                        aria-label="Show previous week"
+                      >
+                        ← Prev week
+                      </button>
+                      <span className="date-nav-label" role="status">
+                        Week {safeWeek + 1} of {weekCount}
+                      </span>
+                      <button
+                        type="button"
+                        className="btn btn-outline-dark btn-sm"
+                        onClick={() => setWeekOffset((w) => Math.min(weekCount - 1, w + 1))}
+                        disabled={safeWeek >= weekCount - 1}
+                        aria-label="Show next week"
+                      >
+                        Next week →
+                      </button>
+                    </div>
+
                     <div className="date-strip" role="group" aria-label="Choose a date">
-                      {dateOptions.map((iso) => {
+                      {visibleDates.map((iso) => {
                         const dt = DateTime.fromISO(iso);
                         const isSunday = dt.weekday === 7;
                         const selected = date === iso;

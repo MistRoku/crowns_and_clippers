@@ -1645,9 +1645,13 @@ p:last-child {
 
 .booking-layout {
   display: grid;
-  grid-template-columns: 1fr 340px;
+  grid-template-columns: minmax(0, 1fr) 340px;
   gap: 32px;
   align-items: start;
+}
+
+.booking-main {
+  min-width: 0;
 }
 
 .wizard-steps {
@@ -1715,6 +1719,8 @@ p:last-child {
   border: 1px solid var(--line);
   border-radius: 0;
   padding: clamp(22px, 3vw, 36px);
+  min-width: 0;
+  overflow: hidden;
 }
 
 .wizard-title {
@@ -1817,12 +1823,29 @@ p:last-child {
   display: flex;
   gap: 10px;
   overflow-x: auto;
+  max-width: 100%;
   padding: 4px 2px 14px;
-  margin-bottom: 18px;
+  margin-bottom: 12px;
   scroll-snap-type: x proximity;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
   scrollbar-color: var(--brass-dark) transparent;
+}
+
+.date-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.date-nav-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  white-space: nowrap;
 }
 
 .date-chip {
@@ -1936,6 +1959,7 @@ p:last-child {
   justify-content: space-between;
   align-items: center;
   gap: 14px;
+  flex-wrap: wrap;
   border-top: 1px solid var(--line);
   padding-top: 22px;
   margin-top: 8px;
@@ -2674,7 +2698,7 @@ p:last-child {
    -------------------------------------------------------------------------- */
 @media (max-width: 1020px) {
   .booking-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .booking-summary {
@@ -2919,6 +2943,15 @@ p:last-child {
 
   .wizard-step button {
     padding: 8px;
+  }
+
+  .wizard-nav .btn {
+    flex: 1 1 100%;
+  }
+
+  .date-chip {
+    min-width: 64px;
+    padding: 10px 8px;
   }
 }
 
