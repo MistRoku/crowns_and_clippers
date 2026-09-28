@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /account
+Disallow: /admin
+Disallow: /staff
+Disallow: /notifications
+Disallow: /login
+Disallow: /register
+
+Sitemap: https://crownandclipper.co.za/sitemap.xml

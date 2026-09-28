@@ -13,7 +13,7 @@ const KIND_LABELS: Record<string, string> = {
 };
 
 function NotificationsInner() {
-  usePageTitle('Notifications');
+  usePageTitle('Notifications', 'Your Crown & Clipper booking confirmations, cancellations and appointment reminders.', { path: '/notifications', noindex: true });
   const [items, setItems] = useState<InboxNotification[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [expanded, setExpanded] = useState<number | null>(null);

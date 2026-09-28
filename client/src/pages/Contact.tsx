@@ -18,7 +18,7 @@ interface ContactForm {
 const EMPTY: ContactForm = { name: '', email: '', phone: '', subject: '', message: '' };
 
 export default function Contact() {
-  usePageTitle('Contact & Find Us');
+  usePageTitle('Contact & Find Us', 'Find Crown & Clipper at 44 Stanley Avenue, Milpark, Johannesburg. Call 011 482 1234 or send a message — replies within one business day.', { path: '/contact' });
   const SHOP = useShop();
   const openStatus = getOpenStatus(SHOP.hours, SHOP.timezone);
   const todayIndex = DateTime.now().setZone(SHOP.timezone).weekday - 1;

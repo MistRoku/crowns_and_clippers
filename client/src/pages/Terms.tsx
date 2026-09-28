@@ -3,7 +3,7 @@ import PageHero, { usePageTitle } from '../components/PageHero';
 import { useShop } from '../context/ShopContext';
 
 export default function Terms() {
-  usePageTitle('Terms & Conditions');
+  usePageTitle('Terms & Conditions', 'Booking, cancellation, pricing in rand and conduct terms for Crown & Clipper Barber Co., Johannesburg.', { path: '/terms' });
   const SHOP = useShop();
 
   return (

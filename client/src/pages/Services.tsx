@@ -30,7 +30,7 @@ const GOOD_TO_KNOW = [
 ];
 
 export default function Services() {
-  usePageTitle('Services & Prices');
+  usePageTitle('Services & Prices', 'Classic cuts from R240, skin fades, beard sculpts, hot-towel shaves, braids, locs and packages at Crown & Clipper, Milpark Johannesburg. Prices include VAT.', { path: '/services' });
   const SHOP = useShop();
 
   const [services, setServices] = useState<Service[]>(FALLBACK_SERVICES);

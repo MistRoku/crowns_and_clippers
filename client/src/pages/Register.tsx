@@ -6,7 +6,7 @@ import { useShop } from '../context/ShopContext';
 import { errorMessage } from '../lib/api';
 
 export default function Register() {
-  usePageTitle('Create an account');
+  usePageTitle('Create an account', 'Create a Crown & Clipper account to book faster and keep every appointment in one place.', { path: '/register', noindex: true });
   const { register } = useAuth();
   const shop = useShop();
   const navigate = useNavigate();

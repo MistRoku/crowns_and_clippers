@@ -33,9 +33,60 @@
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Libre+Franklin:wght@400;600&display=swap"
       rel="stylesheet"
     />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BarberShop",
+        "name": "Crown & Clipper Barber Co.",
+        "slogan": "Sharp cuts. Timeless style.",
+        "url": "https://crownandclipper.co.za/",
+        "image": "https://crownandclipper.co.za/images/og-image.jpg",
+        "telephone": "+27 11 482 1234",
+        "email": "hello@crownandclipper.co.za",
+        "priceRange": "R150 - R850",
+        "currenciesAccepted": "ZAR",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "44 Stanley Avenue, Milpark",
+          "addressLocality": "Johannesburg",
+          "postalCode": "2092",
+          "addressCountry": "ZA"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "09:00",
+            "closes": "19:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Saturday",
+            "opens": "09:00",
+            "closes": "18:00"
+          }
+        ],
+        "acceptsReservations": "True"
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <div style="max-width: 720px; margin: 48px auto; padding: 0 20px; font-family: Georgia, serif;">
+        <h1>Crown &amp; Clipper Barber Co. — Premium Barbershop in Johannesburg</h1>
+        <p>Sharp cuts. Timeless style. 44 Stanley Avenue, Milpark, Johannesburg 2092.</p>
+        <p>Mon–Fri 9:00–19:00 · Sat 9:00–18:00 · Sun closed · Call 011 482 1234.</p>
+        <p>Classic cuts, skin fades, beard sculpts, hot-towel shaves, braids and locs — prices in rand, VAT included.</p>
+        <ul>
+          <li><a href="/services">Services &amp; Prices</a></li>
+          <li><a href="/about">Our Story &amp; Barbers</a></li>
+          <li><a href="/booking">Book an Appointment</a></li>
+          <li><a href="/contact">Contact &amp; Find Us</a></li>
+        </ul>
+        <p>Online booking needs JavaScript enabled.</p>
+      </div>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

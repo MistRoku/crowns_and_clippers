@@ -3,7 +3,7 @@ import { usePageTitle } from '../components/PageHero';
 import { LogoMark } from '../components/Logo';
 
 export default function NotFound() {
-  usePageTitle('Page Not Found');
+  usePageTitle('Page Not Found', 'The page you asked for does not exist. Head home or book an appointment at Crown & Clipper.', { noindex: true });
 
   return (
     <section className="notfound">

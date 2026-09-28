@@ -8,7 +8,7 @@ import { DateTime } from 'luxon';
 import { useShop } from '../context/ShopContext';
 
 function StaffInner() {
-  usePageTitle('My schedule');
+  usePageTitle('My schedule', 'Your Crown & Clipper chair schedule: confirmed appointments for the selected window.', { path: '/staff', noindex: true });
   const { user } = useAuth();
   const shop = useShop();
   const [date, setDate] = useState(() =>

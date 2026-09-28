@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { errorMessage } from '../lib/api';
 
 export default function Login() {
-  usePageTitle('Sign in');
+  usePageTitle('Sign in', 'Sign in to Crown & Clipper to track your bookings and manage your appointments.', { path: '/login', noindex: true });
   const { login } = useAuth();
   const navigate = useNavigate();
   const [params] = useSearchParams();

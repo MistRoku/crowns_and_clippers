@@ -8,7 +8,7 @@ import { api, errorMessage, type BookingResponse } from '../lib/api';
 import { formatLongDate, formatPrice } from '../lib/calendar';
 
 function AccountInner() {
-  usePageTitle('My bookings');
+  usePageTitle('My bookings', 'Your upcoming Crown & Clipper appointments, with online cancellation up to 24 hours ahead.', { path: '/account', noindex: true });
   const { user } = useAuth();
   const [bookings, setBookings] = useState<BookingResponse[] | null>(null);
   const [error, setError] = useState<string | null>(null);

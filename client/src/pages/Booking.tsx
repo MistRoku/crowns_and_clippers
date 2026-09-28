@@ -51,7 +51,7 @@ function firstOpenDate(timezone: string): string {
 }
 
 export default function Booking() {
-  usePageTitle('Book an Appointment');
+  usePageTitle('Book an Appointment', 'Book your chair at Crown & Clipper in under a minute: pick a service, your barber, and a live SAST time slot. 44 Stanley Avenue, Milpark.', { path: '/booking' });
   const SHOP = useShop();
   const [searchParams] = useSearchParams();
 

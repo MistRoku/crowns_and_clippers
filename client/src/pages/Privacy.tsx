@@ -3,7 +3,7 @@ import PageHero, { usePageTitle } from '../components/PageHero';
 import { useShop } from '../context/ShopContext';
 
 export default function Privacy() {
-  usePageTitle('Privacy Policy');
+  usePageTitle('Privacy Policy', 'How Crown & Clipper handles bookings, contact messages and newsletter signups under South African data law.', { path: '/privacy' });
   const SHOP = useShop();
 
   return (

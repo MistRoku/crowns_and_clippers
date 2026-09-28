@@ -35,7 +35,7 @@ const TIMELINE = [
 ];
 
 export default function About() {
-  usePageTitle('Our Story & Barbers');
+  usePageTitle('Our Story & Barbers', 'Crown & Clipper has cut Johannesburg since 2014: four master barbers plus a dedicated braiding and locs chair on Stanley Avenue, Milpark.', { path: '/about' });
 
   const [barbers, setBarbers] = useState<Barber[]>(FALLBACK_BARBERS);
 

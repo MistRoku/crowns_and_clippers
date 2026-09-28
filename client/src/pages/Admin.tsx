@@ -26,7 +26,7 @@ const TABS: { id: Tab; label: string }[] = [
 ];
 
 function AdminInner() {
-  usePageTitle('Admin dashboard');
+  usePageTitle('Admin dashboard', 'Crown & Clipper owner dashboard: bookings, inbox, newsletter list and staff accounts.', { path: '/admin', noindex: true });
   const shop = useShop();
   const [tab, setTab] = useState<Tab>('overview');
 
