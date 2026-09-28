@@ -83,8 +83,9 @@ small things reviewers notice.
 For a booking of **Skin Fade (45 min) at 15:00 on a chosen date**, verify the Google event
 and the .ics both say: start 15:00, end **15:45**, same date, title contains "Skin Fade",
 "Crown & Clipper" and the barber name, location = 44 Stanley Avenue, Milpark, Johannesburg 2092,
-description contains the reference. Repeat once with a winter date (GMT) and a summer date
-(BST) if booking far ahead — times must stay correct across the DST change.
+description contains the reference. Repeat once with a mid-year date and once with a
+year-end date — South Africa observes no DST (SAST, UTC+2 year-round), so both must
+show identical local times with no seasonal shift.
 
 ## 10. Final submission
 

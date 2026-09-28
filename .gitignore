@@ -11,6 +11,11 @@ dist/
 .vite/
 
 # Environment & editor
+# Vite inlines VITE_* into the client bundle (public by design), so only
+# non-secret .example templates are committed; real env files stay local.
+client/.env
+client/.env.*
+!client/.env.*.example
 .env.local
 .env.*.local
 .DS_Store

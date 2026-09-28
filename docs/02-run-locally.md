@@ -72,8 +72,10 @@ You should see:
 ```
 
 Open **http://localhost:5173** in your browser. The frontend reads the API URL from
-`client/.env.development` (`VITE_API_URL=http://localhost:5000`), so the two apps are
-already wired together.
+`VITE_API_URL` (defaults to `http://localhost:5000` when unset, see
+`client/.env.development.example` — copy it to the git-ignored
+`client/.env.development` if you need to point at a different API), so the two
+apps are already wired together.
 
 ## 4. Things to try while developing
 
@@ -103,8 +105,8 @@ already wired together.
 | Symptom | Fix |
 | --- | --- |
 | `dotnet: command not found` after install | Close & reopen PowerShell (PATH refresh), or reboot |
-| Port 5000 already in use | Stop the other app, or change `PORT` env var: `$env:PORT="5050"; dotnet run` and update `client/.env.development` |
-| Browser shows "can't reach our booking server" | API not running / wrong `VITE_API_URL`; check terminal 1 and restart Vite after editing `.env` files |
+| Port 5000 already in use | Stop the other app, or change `PORT` env var: `$env:PORT="5050"; dotnet run` and set `VITE_API_URL` in your local `client/.env.development` |
+| Browser shows "can't reach our booking server" | API not running / wrong `VITE_API_URL`; check terminal 1 and restart Vite after editing local `.env` files |
 | Vite cache weirdness | `cd client; Remove-Item -Recurse node_modules\.vite; npm run dev` |
 | Database in a weird state | Stop API, delete `server\CrownAndClipper.Api\crownclipper.db`, run again (it re-seeds) |
 

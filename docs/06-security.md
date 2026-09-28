@@ -70,7 +70,7 @@ Verify: 12 rapid `POST /api/newsletter` → the last responses are `429` with a 
 | --- | --- |
 | Vulnerable npm packages | `npm audit` clean (0 vulnerabilities): Vite 7 + esbuild ≥ 0.25 (GHSA-67mh-4wv8-2f99 fixed), react-router-dom 7.18+ |
 | Unpinned builds | `package-lock.json` committed; NuGet versions pinned in the `.csproj` |
-| Secrets in repo | None exist: config holds no credentials; CORS origins and `VITE_API_URL` are plain (non-secret) settings injected per environment |
+| Secrets in repo | None exist: only `.env.*.example` placeholder templates are committed (real `client/.env*` files are git-ignored); config holds no credentials; CORS origins and `VITE_API_URL` are plain (non-secret, public-in-bundle) settings injected per environment |
 
 ## 7. CSRF note
 
@@ -101,3 +101,7 @@ fail). If cookie auth is ever added, add anti-forgery tokens at the same time.
 4. If you add analytics or any new third-party script, update the CSP in
    `client/netlify.toml` **and** `SecurityHeadersMiddleware.SiteCsp` together.
 5. Never enable Swagger or detailed errors outside Development.
+6. To rotate the JWT signing key, set a new `JWT_SECRET` value and restart the
+   API — all sessions invalidate at once (tokens live max 8 h, so the forced
+   re-login window is bounded by design). Password hashes need no migration:
+   the `v1$` prefix versions the format for future upgrades.

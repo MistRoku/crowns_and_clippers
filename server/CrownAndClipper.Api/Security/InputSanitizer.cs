@@ -4,10 +4,13 @@ using System.Text.RegularExpressions;
 namespace CrownAndClipper.Api.Security;
 
 /// <summary>
-/// Input sanitisation and validation for every customer-supplied string.
-/// Rules: strip control characters and zero-width code points, collapse
-/// whitespace, enforce length limits, and validate shape before anything
-/// reaches the database or a response.
+/// Input hygiene and validation for every customer-supplied string.
+/// This is defense-in-depth, not the injection boundary: EF Core
+/// parameterises all queries (no raw SQL) and React escapes rendered values
+/// by default. This layer strips control/zero-width/bidi-override characters
+/// that survive those layers into stored text, collapses whitespace, and
+/// validates shape + length before anything reaches the database or a
+/// response (lengths are additionally enforced by EF HasMaxLength columns).
 /// </summary>
 public static class InputSanitizer
 {

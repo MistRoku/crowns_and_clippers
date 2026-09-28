@@ -9,10 +9,11 @@ assessment brief maps to concrete files.
 | --- | --- |
 | React (Vite + TS) frontend, ASP.NET Core 8 API backend | Required stack; also the industry-standard split: static SPA on a CDN-ish host, JSON API behind it |
 | SQLite via EF Core (`EnsureCreated` + seeder) | Zero-setup database that behaves identically locally and in Docker; migrations would be the next step in a real team |
-| All shop times computed in `Europe/London` (server `ShopClock`, client `luxon`) | Reviewers may be in any time zone; the appointment must mean "3 PM in Johannesburg", DST-safe |
+| All shop times computed in `Africa/Johannesburg` (server `ShopClock`, client `luxon`) | Reviewers may be in any time zone; the appointment must mean "3 PM in Johannesburg" (SAST, UTC+2 year-round, no DST) |
 | Availability generated server-side from opening hours + existing bookings | Single source of truth; the client can't invent or double-book slots |
 | Calendar events built **client-side from the booking response** | No secrets needed, works with Google/Apple/Outlook, and the data is exactly what the customer chose |
 | Static fallback catalogue (`src/data/fallback.ts`) | Marketing pages still render if the free-tier API is cold; booking always uses live data |
+| Beyond-brief design (my own calls): notification **outbox + dedupe keys**, tenant isolation via EF query filters, double-booking via check-then-insert **plus** unique index | The brief asked for reminders and multi-tenancy; the outbox/idempotency pattern, the isolation mechanism, and the two-layer race defence were implementation choices, not prescribed designs |
 
 ## Requirement → implementation map
 
@@ -38,9 +39,9 @@ double-booking 409, reference generation `CC-XXXXXX`) + `controllers/Availabilit
 (30-min grid from `Data/OpeningHours.cs`, per-barber or any-barber availability).
 
 **Calendar integration (required)** — `lib/calendar.ts`:
-- `googleCalendarUrl()` — template link with `ctz=Europe/London` so Google converts correctly
+- `googleCalendarUrl()` — template link with `ctz=Africa/Johannesburg` so Google converts correctly
 - `outlookCalendarUrl()` — Outlook.com deep link with UTC ISO times
-- `buildIcs()` / `downloadIcs()` — RFC 5545 file with `VTIMEZONE` (GMT/BST rules), `UID`,
+- `buildIcs()` / `downloadIcs()` — RFC 5545 file with a single-`STANDARD` SAST `VTIMEZONE` (South Africa observes no DST), `UID`,
   `DTSTAMP`, 2-hour `VALARM`; line-folding to the 75-octet limit; escaping of `, ; \` newlines
 - `components/CalendarButtons.tsx` renders the three actions on the confirmation screen.
 Everything derives from `toCalendarBooking(bookingResponse)` — the customer's actual selection.
@@ -70,7 +71,7 @@ slot grid, footer and header all re-flow; `prefers-reduced-motion` respected.
 - `Data/AppDbContext.cs` — entities, unique indexes (service/barber slugs, booking
   reference), decimal→double for SQLite
 - `Data/DbSeeder.cs` — 13 services, 5 specialists and the service-to-stylist qualification links (incremental, idempotent)
-- `Data/OpeningHours.cs` — `ShopClock` (Europe/London now/today, 60-min lead time),
+- `Data/OpeningHours.cs` — `ShopClock` (Africa/Johannesburg now/today, 60-min lead time),
   weekly hours, slot grid generation, weekly schedule DTO for the frontend
 - `Controllers/` — thin, validated endpoints; `BookingsController` assigns the first free
   barber when "no preference", rejects clashes with 409 and human messages

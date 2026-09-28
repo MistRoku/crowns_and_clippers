@@ -7,10 +7,16 @@ using Microsoft.IdentityModel.Tokens;
 namespace CrownAndClipper.Api.Security;
 
 /// <summary>
-/// Issues and configures JWT bearer tokens. The signing secret comes from the
-/// JWT_SECRET environment variable; a clearly-labelled development fallback
-/// exists so local runs work without configuration, and Program.cs refuses to
-/// start in Production without a real secret.
+/// Issues and configures JWT bearer tokens using the standard
+/// Microsoft.IdentityModel JWT stack (HS256, issuer/audience/lifetime
+/// validation) — no custom cryptography. A full ASP.NET Core Identity +
+/// EF store was deliberately avoided: this API needs stateless JWTs only,
+/// and the user/role/tenant model is a small custom schema. The signing
+/// secret comes from the JWT_SECRET environment variable; a clearly-labelled
+/// development fallback exists so local runs work without configuration,
+/// and Program.cs refuses to start in Production without a real secret.
+/// Key rotation: set a new JWT_SECRET value and restart — all existing
+/// tokens invalidate at once (max 8 h of forced re-login by design).
 /// </summary>
 public class TokenService
 {

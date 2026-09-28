@@ -47,7 +47,7 @@ Built as a **React + C# (ASP.NET Core)** full-stack application, ready to deploy
 - **Calendar integration** (required): confirmation screen offers **Google Calendar**,
   **Apple Calendar (.ics download)** and **Outlook** — every event is generated from the
   customer's actual selection (service, barber, date, start/end time, location, reference,
-  2-hour reminder), correctly handling the shop's Europe/London time zone (GMT/BST)
+  2-hour reminder), correctly handling the shop's Africa/Johannesburg time zone (SAST, UTC+2, no daylight saving)
 - **Popup/modal**: first-visit offer (10% off, code `FIRSTCUT10`) with email capture saved
   via the API, dismissible (X, Esc, backdrop, "no thanks"), shown once via localStorage,
   never interrupts the booking flow

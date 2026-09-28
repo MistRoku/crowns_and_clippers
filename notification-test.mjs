@@ -19,10 +19,10 @@ const assert = (cond, msg) => {
   else console.log('  ok -', msg);
 };
 
-// A slot ~24h from now in shop time (Europe/London), rounded up to the
+// A slot ~24h from now in shop time (Africa/Johannesburg, SAST), rounded up to the
 // 30-minute grid. If "now + 24h" falls outside opening hours the 24h-reminder
 // assertions are skipped gracefully (run the test during shop daytime).
-const fmt = new Intl.DateTimeFormat('en-GB', {
+const fmt = new Intl.DateTimeFormat('en-ZA', {
   timeZone: 'Africa/Johannesburg', hour12: false,
   year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit',
 });

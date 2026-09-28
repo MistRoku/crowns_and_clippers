@@ -4,7 +4,10 @@ namespace CrownAndClipper.Api.Security;
 
 /// <summary>
 /// PBKDF2 (SHA-256, 100k iterations, 16-byte salt, 32-byte subkey) password
-/// hashing with constant-time verification. Stored format:
+/// hashing with constant-time verification — the same construction as
+/// ASP.NET Core Identity's default hasher (PBKDF2-HMACSHA256, versioned
+/// salt$subkey format), implemented directly to avoid pulling the full
+/// Identity + EF store stack for a JWT-only API. Stored format:
 /// v1$base64(salt)$base64(subkey)
 /// </summary>
 public static class PasswordHasher
