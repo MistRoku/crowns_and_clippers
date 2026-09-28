@@ -1,4 +1,5 @@
 using CrownAndClipper.Api.Data;
+using Xunit;
 
 namespace CrownAndClipper.Tests;
 

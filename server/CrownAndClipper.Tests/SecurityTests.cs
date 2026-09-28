@@ -1,4 +1,5 @@
 using CrownAndClipper.Api.Security;
+using Xunit;
 
 namespace CrownAndClipper.Tests;
 
